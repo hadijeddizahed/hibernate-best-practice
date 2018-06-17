@@ -1,0 +1,1 @@
+# hibernate-best-practice
