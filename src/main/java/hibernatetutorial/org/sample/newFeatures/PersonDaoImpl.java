@@ -8,7 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 @Service
@@ -21,6 +23,11 @@ public class PersonDaoImpl implements PersonDao {
     @Override
     public void save(Person person) {
         entityManager.persist(person);
+    }
+
+    @Override
+    public Person findBy(Long id) {
+        return entityManager.find(Person.class,id);
     }
 
     @Override
@@ -42,5 +49,18 @@ public class PersonDaoImpl implements PersonDao {
         Query query = entityManager.unwrap(Session.class).createQuery("Person.findByname")
                 .setParameter("name", name);
         return query.getResultList();
+    }
+
+
+
+    <T> Consumer<T> combine(Collection<? extends Consumer<? super T>> consumers) {
+        Consumer<T> result = noOpConsumer();
+        for (Consumer<? super T> consumer : consumers) {
+            result = result.andThen(consumer);
+        }
+        return result;
+    }
+    <T> Consumer<T> noOpConsumer() {
+        return value -> { /* do nothing */ };
     }
 }

@@ -8,6 +8,8 @@ public interface PersonDao {
 
     void save(Person person);
 
+    Person findBy(Long id);
+
     Stream<Person> getAll();
 
     List<Person> getMultipleById(List<Long> ids);
