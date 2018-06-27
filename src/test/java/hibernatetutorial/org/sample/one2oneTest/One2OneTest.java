@@ -14,6 +14,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = SampleApplication.class)
 @WebAppConfiguration
@@ -35,5 +37,9 @@ public class One2OneTest {
 
         addressDao.save(address);
 
+    }
+
+    private void test(List<String> list){
+        System.out.println("size:   >>>>>"+ list.size());
     }
 }
